@@ -26,7 +26,7 @@
 
 ## view-member
 <h2> save </h2>
--jquery를 사용하기 위한 문장
+- jquery를 사용하기 위한 문장
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 	function idDp(){
