@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Member">
+	<insert id="save" parameterType="mdto">
+		insert into Member_table(m_number, m_id, m_pw, m_name, m_email, m_phone,
+		m_filename)
+		values(#{m_number},#{m_id},#{m_pw},#{m_name},#{m_email},#{m_phone},#{m_filename})
+	</insert>
+
+	<select id="idDp" parameterType="String" resultType="String">
+		select m_id
+		from Member_table where m_id=#{m_id}
+	</select>
+
+	<select id="login" parameterType="mdto" resultType="mdto">
+		select * from
+		Member_table where m_id=#{m_id} and m_pw=#{m_pw}
+	</select>
+
+	<select id="findAll" resultType="mdto">
+		select*from Member_table
+	</select>
+
+	<select id="delete" parameterType="long">
+		delete from Member_table where
+		m_number=#{m_number}
+	</select>
+
+	<select id="mypage" parameterType="long" resultType="mdto">
+		select *
+		from Member_table where m_number=#{m_number}
+	</select>
+
+	<update id="update" parameterType="mdto">
+		update Member_table set
+		m_pw=#{m_pw}, m_email=#{m_email}, m_phone=#{m_phone},
+		m_filename=#{m_filename}
+		where m_number=#{m_number}
+	</update>
+</mapper>

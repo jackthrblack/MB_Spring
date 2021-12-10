@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="Board"> 
+ 	<insert id="insert" parameterType="bdto">
+ 		insert into Board_table(b_number, b_title, b_writer, b_contents, b_hits, b_date, b_filename) 
+ 			values(#{b_number},#{b_title},#{b_writer},#{b_contents},0,now(),#{b_filename})
+ 	</insert>
+ 	
+ 	<select id="pagingList1" parameterType="java.util.HashMap" resultType="bdto">
+ 		select * from Board_table order by b_number desc limit #{start}, #{limit}
+ 	</select>
+ 	
+ 	<select id="count" resultType="int">
+ 		select count(b_number) from Board_table
+ 	</select>
+ 	
+ 	<select id="search" parameterType="java.util.HashMap" resultType="bdto">
+ 		select * from Board_table where ${type} like concat('%', #{word}, '%')
+ 	</select>
+ 	
+ 	<select id="detail" parameterType="long" resultType="bdto">
+ 		select * from Board_table where b_number=#{b_number}
+ 	</select>
+ 	
+ 	<update id="hits" parameterType="long">
+ 		update Board_table set b_hits=b_hits+1 where b_number=#{b_number}
+ 	</update>
+ 	
+ 	<select id="delete" parameterType="long">
+ 		delete from Board_table where b_number=#{b_number}
+ 	</select>
+ 	
+ 	<update id="update" parameterType="bdto">
+ 		update Board_table set b_title=#{b_title}, b_contents=#{b_contents}, b_filename=#{b_filename}
+ 		where b_number=#{b_number}
+ 	</update>
+ </mapper>
